@@ -10,11 +10,13 @@
 #import "AppDelegate.h"
 #import "GBMUserModel.h"
 #import "CommonTools.h"
+#import "CommonRequest.h"
 
-@interface ChangeHeadImageController : UIViewController<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface ChangeHeadImageController : UIViewController<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CommonRequestDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgPreview;
 @property (strong,nonatomic) UIImagePickerController* pickerController;
+@property (nonatomic,strong) CommonRequest *commonRequest;
 
 - (IBAction)changeHeadImgBtnClicked:(id)sender;
 - (IBAction)comfirmBtnClicked:(id)sender;

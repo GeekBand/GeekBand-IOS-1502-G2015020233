@@ -14,4 +14,5 @@
 +(NSString *)regist;
 +(NSString *)headImg;
 +(NSString *)rename;
++(NSString *)avatar;
 @end

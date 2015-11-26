@@ -16,17 +16,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.pickerController=[[UIImagePickerController alloc] init];
+    self.pickerController.allowsEditing=YES;
+    self.pickerController.delegate=self;
+    
+    self.commonRequest=[[CommonRequest alloc] init];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    GBMUserModel *user = app.user;
-    NSString *headUrl=[MoranAPI  headImg];
-    NSString *urlString=[NSString stringWithFormat:@"%@?user_id=%@",headUrl,user.userId];
-    
-    UIImage* serverImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: urlString]]];
-    self.imgPreview.image=serverImage;
+    if(!self.imgPreview.image){
+        AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        GBMUserModel *user = app.user;
+        self.imgPreview.image=user.image;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,40 +52,65 @@
                                                      delegate:self
                                             cancelButtonTitle:@"取消"
                                        destructiveButtonTitle:nil
-                                            otherButtonTitles:@"拍照",@"从照相机选择", nil];
+                                            otherButtonTitles:@"拍照",@"从相册选择", nil];
     [sheet showInView:self.tabBarController.view];
 }
 
 - (IBAction)comfirmBtnClicked:(id)sender {
+    NSString *avatarUrl=[MoranAPI  avatar];
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    GBMUserModel *user = app.user;
     
+    NSData *data=UIImageJPEGRepresentation(self.imgPreview.image, 0.000001);
+    
+    NSString *encodeUrlString=[avatarUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url=[NSURL URLWithString:encodeUrlString];
+    NSMutableURLRequest *request=[[NSMutableURLRequest alloc] initWithURL:url];
+    request.HTTPMethod=@"POST";
+    request.timeoutInterval=60;
+    request.cachePolicy=NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
+    
+    BLMultipartForm *form=[[BLMultipartForm alloc] init];
+    [form addValue:user.userId forField:@"user_id"];
+    [form addValue:user.token forField:@"token"];
+    [form addValue:data forField:@"data"];
+    
+    request.HTTPBody=[form httpBody];
+    [request setValue:form.contentType forHTTPHeaderField:@"Content-Type"];
+    [self.commonRequest sendRequest:request delegate:self];
 }
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    self.pickerController=[[UIImagePickerController alloc] init];
     if(buttonIndex==0){
         if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
             self.pickerController.sourceType=UIImagePickerControllerSourceTypeCamera;
-            self.pickerController.allowsEditing=NO;
-            self.pickerController.delegate=self;
             
-            [self.tabBarController presentViewController:self.pickerController animated:YES completion:nil];
+            [self.tabBarController presentViewController:self.pickerController
+                                                animated:YES
+                                              completion:nil];
         }else{
             [CommonTools showMessage:self message:@"无法获取相机"];
         }
     }else if(buttonIndex==1){
         self.pickerController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-        self.pickerController.delegate=self;
-        [self.tabBarController presentViewController:self.pickerController animated:YES completion:nil];
+        [self.tabBarController presentViewController:self.pickerController
+                                            animated:YES
+                                          completion:nil];
     }
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    UIImage *img=info[UIImagePickerControllerOriginalImage];
+    UIImage *img=info[UIImagePickerControllerEditedImage];
     CGSize imgSize=img.size;
     imgSize.height=self.imgPreview.frame.size.height;
     imgSize.width=self.imgPreview.frame.size.width;
     
     img=[self imageWithImage:img scaledToSize:imgSize];
     self.imgPreview.image=img;
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
@@ -95,6 +123,22 @@
     UIGraphicsEndImageContext();
     
     return newImage;
+}
+
+-(void)requestSuccess:(CommonRequest *)request data:(NSData *)data{
+    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"更换头像成功:%@",string);
+    
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    GBMUserModel *user = app.user;
+    user.image=nil;
+    
+    [[self navigationController] popViewControllerAnimated:YES];
+}
+
+-(void)requestFailed:(CommonRequest *)request error:(NSError *)error{
+    NSLog(@"error = %@",error);
+    [[self navigationController] popViewControllerAnimated:YES];
 }
 @end
 

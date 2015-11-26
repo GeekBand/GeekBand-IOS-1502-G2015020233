@@ -10,9 +10,13 @@
 #import "GBMGetImage.h"
 #import "AppDelegate.h"
 #import "GBMUserModel.h"
+#import "CommonRequest.h"
 
-@interface GBMMyViewController : UITableViewController
+@interface GBMMyViewController : UITableViewController<CommonRequestDelegate>
+
 @property (weak, nonatomic) IBOutlet UIImageView *headImgView;
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *emailLbl;
+@property (nonatomic,strong) CommonRequest *commonRequest;
+
 @end

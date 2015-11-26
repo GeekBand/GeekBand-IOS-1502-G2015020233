@@ -22,4 +22,7 @@
 +(NSString *)rename{
     return @"http://moran.chinacloudapp.cn/moran/web/user/rename";
 }
++(NSString *)avatar{
+    return @"http://moran.chinacloudapp.cn/moran/web/user/avatar";
+}
 @end

@@ -18,6 +18,8 @@
     [super viewDidLoad];
     self.headImgView.layer.cornerRadius=self.headImgView.frame.size.width/2.0f;
     self.headImgView.clipsToBounds=YES;
+    
+    self.commonRequest=[[CommonRequest alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -27,14 +29,18 @@
 -(void)viewDidAppear:(BOOL)animated{
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     GBMUserModel *user = app.user;
-    NSString *headUrl=[MoranAPI  headImg];
-    NSString *urlString=[NSString stringWithFormat:@"%@?user_id=%@",headUrl,user.userId];
-    
-    UIImage* serverImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: urlString]]];
-    self.headImgView.image=serverImage;
     
     self.nickNameLbl.text=user.userName;
     self.emailLbl.text=user.email;
+    
+    if(!user.image){
+        NSString *headUrl=[MoranAPI  headImg];
+        NSString *urlString=[NSString stringWithFormat:@"%@?user_id=%@",headUrl,user.userId];
+        
+        UIImage* serverImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: @"http://www.baidu.com/img/bd_logo1.png"]]];
+        user.image=serverImage;
+    }
+    self.headImgView.image=user.image;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
