@@ -22,15 +22,38 @@
     return [psdTest evaluateWithObject:password];
 }
 
++(void)showConfirmMessage:(UIViewController *)uiView
+                  message:(NSString *)msg
+                  confirm:(void (^)(void))confirm
+                   cancel:(void (^)(void))cancel{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
+                                                                   message:msg
+                                                            preferredStyle:UIAlertControllerStyleAlert
+                                ];
+    
+    UIAlertAction* confirmAction = [UIAlertAction actionWithTitle:@"确定"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              if(confirm){
+                                                                  confirm();
+                                                              }
+                                                          }];
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              if(cancel){
+                                                                  cancel();
+                                                              }
+                                                          }];
+    
+    [alert addAction:confirmAction];
+    [alert addAction:cancelAction];
+    [uiView presentViewController:alert animated:YES completion:nil];
+}
+
 +(void)showMessage:(UIViewController *)uiView
            message:(NSString *)msg
           complete:(void(^)(void))callback{
-    //    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil
-    //                                                  message:msg
-    //                                                 delegate:nil
-    //                                        cancelButtonTitle:@"确定"
-    //                                        otherButtonTitles:nil];
-    //    [alert show];
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
                                                                    message:msg
                                                             preferredStyle:UIAlertControllerStyleAlert

@@ -19,5 +19,6 @@
 @property (strong, nonatomic) GBMUserModel *user;
 
 -(void)loadMainViewWithController:(GBMUserModel *)loginUser;
+-(void)logoutView;
 @end
 

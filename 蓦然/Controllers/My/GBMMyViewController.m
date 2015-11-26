@@ -36,7 +36,6 @@
     if(!user.image){
         NSString *headUrl=[MoranAPI  headImg];
         NSString *urlString=[NSString stringWithFormat:@"%@?user_id=%@",headUrl,user.userId];
-        
         UIImage* serverImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: @"http://www.baidu.com/img/bd_logo1.png"]]];
         user.image=serverImage;
     }
@@ -56,4 +55,15 @@
     return 0;
 }
 
+- (IBAction)logoutBtnClicked:(id)sender {
+    [CommonTools showConfirmMessage:self message:@"确定注销吗？"
+                            confirm:^(){
+                                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                                [app logoutView];
+                            }
+                             cancel:^(){
+        
+                             }
+     ];
+}
 @end

@@ -20,6 +20,28 @@
     return YES;
 }
 
+-(void)logoutView{
+    UIStoryboard *loginStoryboard=[UIStoryboard storyboardWithName:@"LoginAndRegister"
+                                                         bundle:[NSBundle mainBundle]];
+    UIViewController *loginVC = [loginStoryboard instantiateViewControllerWithIdentifier:@"LoginStoryboard"];
+    
+    self.loginViewController = loginVC;
+    [self.tabBarController presentViewController:self.loginViewController
+                                        animated:YES
+                                      completion:nil];
+
+    
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         self.tabBarController.view.alpha = 0;
+                     }
+                     completion:^(BOOL finished){
+                         self.tabBarController = nil;
+                         self.user = nil;
+                     }
+     ];
+}
+
 -(void)loadMainViewWithController:(GBMUserModel *)loginUser{
     
     self.user=loginUser;

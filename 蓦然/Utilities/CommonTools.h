@@ -13,9 +13,13 @@
 
 +(BOOL)isValidEmail:(NSString *)email;
 +(BOOL)isvalidPassword:(NSString *)password;
++(void)showConfirmMessage:(UIViewController *)uiView
+                  message:(NSString *)msg
+                  confirm:(void(^)(void))callback
+                   cancel:(void(^)(void))cancel;
 +(void)showMessage:(UIViewController *)uiView
            message:(NSString *)msg
-          complete:(void(^)(void))callbak;
+          complete:(void(^)(void))confirm;
 +(void)showMessage:(UIViewController *)uiView message:(NSString *)msg;
 +(NSString *)gbid;
 @end

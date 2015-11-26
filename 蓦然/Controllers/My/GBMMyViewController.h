@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "GBMUserModel.h"
 #import "CommonRequest.h"
+#import "CommonTools.h"
 
 @interface GBMMyViewController : UITableViewController<CommonRequestDelegate>
 
@@ -19,4 +20,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *emailLbl;
 @property (nonatomic,strong) CommonRequest *commonRequest;
 
+- (IBAction)logoutBtnClicked:(id)sender;
 @end

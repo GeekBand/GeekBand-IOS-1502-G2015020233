@@ -182,6 +182,9 @@
                                                     <state key="normal" title="注销登录">
                                                         <color key="titleColor" red="0.00094125346470000002" green="0.00094125346470000002" blue="0.00094125346470000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="logoutBtnClicked:" destination="Edb-AF-FP6" eventType="touchUpInside" id="pk0-fD-P1N"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <animations/>
@@ -225,6 +228,9 @@
                                                     <state key="normal" title="评价我们">
                                                         <color key="titleColor" red="0.00094125346470000002" green="0.00094125346470000002" blue="0.00094125346470000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <segue destination="7GD-C8-0fX" kind="show" id="LF3-2K-nPr"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <animations/>
@@ -342,10 +348,10 @@
             </objects>
             <point key="canvasLocation" x="2216" y="362"/>
         </scene>
-        <!--View Controller-->
+        <!--Home Page View Controller-->
         <scene sceneID="jYS-fZ-xsE">
             <objects>
-                <viewController id="7GD-C8-0fX" sceneMemberID="viewController">
+                <viewController id="7GD-C8-0fX" customClass="HomePageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8a3-Jk-uj4"/>
                         <viewControllerLayoutGuide type="bottom" id="V2N-Wo-b30"/>
@@ -354,7 +360,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Prt-MA-okr">
+                            <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Prt-MA-okr">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
@@ -362,8 +368,17 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Prt-MA-okr" firstAttribute="leading" secondItem="uBG-L1-uHc" secondAttribute="leadingMargin" constant="-20" id="LLG-lT-l3t"/>
+                            <constraint firstItem="V2N-Wo-b30" firstAttribute="top" secondItem="Prt-MA-okr" secondAttribute="bottom" id="a3c-ly-Tkc"/>
+                            <constraint firstItem="Prt-MA-okr" firstAttribute="top" secondItem="uBG-L1-uHc" secondAttribute="topMargin" id="fza-Lh-YHy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Prt-MA-okr" secondAttribute="trailing" constant="-20" id="gUg-ba-6GB"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="WebView" destination="Prt-MA-okr" id="Aeb-rJ-qiO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zGV-DE-MN1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -504,6 +519,6 @@
         <image name="signout" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dxX-B1-lvx"/>
+        <segue reference="LF3-2K-nPr"/>
     </inferredMetricsTieBreakers>
 </document>
