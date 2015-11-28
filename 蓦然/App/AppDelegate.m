@@ -46,13 +46,15 @@
     
     self.user=loginUser;
     
-    UINavigationController *nav1=[[UINavigationController alloc] init];
-    nav1.navigationBar.barTintColor=[[UIColor alloc] initWithRed:230/255.0
+    UIStoryboard *squareStoryboard=[UIStoryboard storyboardWithName:@"Square"
+                                                             bundle:[NSBundle mainBundle]];
+    SquareNavigationController *squareNav=[squareStoryboard instantiateViewControllerWithIdentifier:@"SquareNavStoryboard"];
+    squareNav.navigationBar.barTintColor=[[UIColor alloc] initWithRed:230/255.0
                                                            green:106/255.0
                                                             blue:58/255.0
                                                            alpha:1];
-    nav1.tabBarItem.title=@"广场";
-    nav1.tabBarItem.image=[UIImage imageNamed:@"square"];
+    squareNav.tabBarItem.title=@"广场";
+    squareNav.tabBarItem.image=[UIImage imageNamed:@"square"];
     
     UIStoryboard *myStoryboard=[UIStoryboard storyboardWithName:@"GBMMy"
                                                          bundle:[NSBundle mainBundle]];
@@ -65,7 +67,7 @@
     myVC.tabBarItem.image=[UIImage imageNamed:@"my"];
     
     self.tabBarController=[[UITabBarController alloc] init];
-    self.tabBarController.viewControllers=@[nav1,myVC];
+    self.tabBarController.viewControllers=@[squareNav,myVC];
     
     [self.loginViewController presentViewController:self.tabBarController
                                            animated:YES

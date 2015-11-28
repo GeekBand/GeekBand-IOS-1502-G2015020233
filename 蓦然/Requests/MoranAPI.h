@@ -15,4 +15,5 @@
 +(NSString *)headImg;
 +(NSString *)rename;
 +(NSString *)avatar;
++(NSString *)location;
 @end

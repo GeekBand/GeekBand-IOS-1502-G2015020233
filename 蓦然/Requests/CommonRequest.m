@@ -23,6 +23,20 @@ static NSURLSessionDataTask *requestTask;
                                                startImmediately:YES];
 }
 
+-(void)sendRequest:(NSMutableURLRequest *)request complete:(RequestCompleteBlock)complete failed:(RequestFailedBlock)failed{
+    
+    if(urlConnection){
+        [urlConnection cancel];
+    }
+    
+    completeFunc=complete;
+    failedFunc=failed;
+    
+    urlConnection=[[NSURLConnection alloc] initWithRequest:request
+                                                  delegate:self
+                                          startImmediately:YES];
+}
+
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
     NSHTTPURLResponse *httpResponse=(NSHTTPURLResponse *)response;
     if(httpResponse.statusCode==200){
@@ -34,12 +48,18 @@ static NSURLSessionDataTask *requestTask;
     [receivedData appendData:data];
 }
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
-    if([self.delegate respondsToSelector:@selector(requestSuccess:data:)]){
+    if(completeFunc){
+        completeFunc(receivedData);
+    }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(requestSuccess:data:)]){
         [self.delegate requestSuccess:self data:receivedData];
     }
 }
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-    if([self.delegate respondsToSelector:@selector(requestFailed:error:)]){
+    if(failedFunc){
+        failedFunc(error);
+    }
+    if(self.delegate && [self.delegate respondsToSelector:@selector(requestFailed:error:)]){
         [self.delegate requestFailed:self error:error];
     }
 }

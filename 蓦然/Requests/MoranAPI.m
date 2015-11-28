@@ -25,4 +25,7 @@
 +(NSString *)avatar{
     return @"http://moran.chinacloudapp.cn/moran/web/user/avatar";
 }
++(NSString *)location{
+    return @"http://moran.chinacloudapp.cn/moran/web/node/list";
+}
 @end

@@ -10,6 +10,7 @@
 #import "GBMMyViewController.h"
 #import "MyNavController.h"
 #import "GBMUserModel.h"
+#import "SquareNavigationController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

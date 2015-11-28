@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^RequestCompleteBlock)(NSData *);
+typedef void(^RequestFailedBlock)(NSError *);
+
 @class CommonRequest;
 @protocol CommonRequestDelegate<NSObject>
 
@@ -19,6 +22,8 @@
 @interface CommonRequest : NSObject<NSURLConnectionDataDelegate>{
     NSURLConnection *urlConnection;
     NSMutableData *receivedData;
+    RequestCompleteBlock completeFunc;
+    RequestFailedBlock failedFunc;
 }
 
 @property (nonatomic,assign)id<CommonRequestDelegate> delegate;
@@ -26,4 +31,8 @@
 
 -(void)sendRequest:(NSMutableURLRequest *)request
           delegate:(id<CommonRequestDelegate>)delegate;
+
+-(void)sendRequest:(NSMutableURLRequest *)request
+          complete:(RequestCompleteBlock)complete
+            failed:(RequestFailedBlock)failed;
 @end
