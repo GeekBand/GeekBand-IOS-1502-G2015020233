@@ -22,9 +22,7 @@
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self=[super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if(self){
-        
-    }
+    
     return self;
 }
 
@@ -36,9 +34,11 @@
     SquareCollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"squareCollectionCell" forIndexPath:indexPath];
     
     Picture *pic=self.dataArr[indexPath.row];
-    UIImage* serverImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: pic.pic_link]]];
+    NSString *urlString=pic.pic_link;
+    NSURL *url=[NSURL URLWithString:urlString];
+    
     cell.descLbl.text=pic.title;
-    cell.imgView.image=serverImage;
+    [cell.imgView sd_setImageWithURL:url];
     return cell;
 }
 

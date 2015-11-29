@@ -51,11 +51,10 @@
     NSDictionary *requestedDic=[CommonParser parseJson:requestedData];
     
     NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    self.addrArray=[NSMutableArray array];
     id data=[[requestedDic valueForKey:@"data"] allValues];
     for(id tmpDic in data){
-        self.addrArray=[NSMutableArray array];
         self.picArray=[NSMutableArray array];
-        
         SquareModel *sm=[[SquareModel alloc] init];
         [sm setValuesForKeysWithDictionary:tmpDic[@"node"]];
         for(id picDic in tmpDic[@"pic"]){
@@ -64,7 +63,7 @@
             [self.picArray addObject:pic];
         }
         [self.addrArray addObject:sm];
-        [dic setObject:_picArray forKey:_addrArray];
+        [dic setObject:_picArray forKey:sm.addr];
     }
     
     self.dataDic = dic;
@@ -83,14 +82,20 @@
     if(!cell){
         cell=[[SquareTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"squareTableCell"];
     }
+    cell.imgCollectionView.delegate = cell;
+    cell.imgCollectionView.dataSource = cell;
+    NSInteger row=indexPath.row;
     
-    SquareModel *square=self.addrArray[indexPath.row][0];
+    SquareModel *square=self.addrArray[row];
     cell.addrLbl.text=square.addr;
-    cell.dataArr=self.dataDic[self.addrArray[indexPath.row]];
+    cell.dataArr=self.dataDic[square.addr];
     [cell.imgCollectionView reloadData];
     return cell;
 }
 @end
+
+
+
 
 
 

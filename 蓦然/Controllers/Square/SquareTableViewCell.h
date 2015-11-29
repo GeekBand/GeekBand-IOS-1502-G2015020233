@@ -10,6 +10,7 @@
 #import "Picture.h"
 #import "SquareCollectionViewCell.h"
 #import "AppDelegate.h"
+#import "UIImageView+WebCache.h"
 
 @interface SquareTableViewCell : UITableViewCell<UICollectionViewDelegate,UICollectionViewDataSource>
 
