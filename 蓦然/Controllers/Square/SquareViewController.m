@@ -17,6 +17,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.locationDic=[NSMutableDictionary dictionary];
+    self.locationManager=[[CLLocationManager alloc] init];
+    self.locationManager.delegate=self;
+    self.locationManager.desiredAccuracy=kCLLocationAccuracyBest;
+    self.locationManager.distanceFilter=1000.0f;
+    
+    if([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0){
+        [_locationManager requestWhenInUseAuthorization];
+    }
+    if([CLLocationManager locationServicesEnabled]){
+        [self.locationManager startUpdatingLocation];
+    }else{
+        [CommonTools showMessage:self message:@"定位失败"];
+    }
+    
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
     [btn setTitle:@"全部" forState:UIControlStateNormal];
     btn.frame=CGRectMake(0, 0, 200, 35);
@@ -27,6 +42,75 @@
     
     self.navigationItem.titleView=btn;
     [self requestAllData];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    CLLocation *newLocation=[locations lastObject];
+    
+    self.locationDic = [NSMutableDictionary dictionary];
+    
+    CLLocationDegrees latitude = newLocation.coordinate.latitude;
+    CLLocationDegrees longitude = newLocation.coordinate.longitude;
+    
+    NSString *latitudeString = [NSString stringWithFormat:@"%f", latitude];
+    NSString *longitudeString = [NSString stringWithFormat:@"%f", longitude];
+    
+    [self.locationDic setValue:latitudeString forKey:@"latitude"];
+    [self.locationDic setValue:longitudeString forKey:@"longitude"];
+    
+    CLLocation *c = [[CLLocation alloc]initWithLatitude:latitude longitude:longitude];
+    CLGeocoder *revGeo = [[CLGeocoder alloc]init];
+    
+    [revGeo reverseGeocodeLocation:c
+                 completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+                     if (!error && [placemarks count] > 0) {
+                         NSDictionary *dict = [[placemarks objectAtIndex:0] addressDictionary];
+                         NSLog(@"Street address %@", [dict objectForKey:@"Street"]);
+                         [self.locationDic setValue:dict[@"Name"] forKey:@"location"];
+                     } else {
+                         NSLog(@"Error: %@", error);
+                     }
+                 }];
+    [manager stopUpdatingLocation];
+
+}
+
+//- (void)locationManager:(CLLocationManager *)manager
+//    didUpdateToLocation:(CLLocation *)newLocation
+//           fromLocation: (CLLocation *)oldLocation{
+//    self.locationDic = [NSMutableDictionary dictionary];
+//    
+//    CLLocationDegrees latitude = newLocation.coordinate.latitude;
+//    CLLocationDegrees longitude = newLocation.coordinate.longitude;
+//    
+//    NSString *latitudeString = [NSString stringWithFormat:@"%f", latitude];
+//    NSString *longitudeString = [NSString stringWithFormat:@"%f", longitude];
+//    
+//    [self.locationDic setValue:latitudeString forKey:@"latitude"];
+//    [self.locationDic setValue:longitudeString forKey:@"longitude"];
+//    
+//    CLLocation *c = [[CLLocation alloc]initWithLatitude:latitude longitude:longitude];
+//    CLGeocoder *revGeo = [[CLGeocoder alloc]init];
+//    
+//    [revGeo reverseGeocodeLocation:c
+//                 completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+//        if (!error && [placemarks count] > 0) {
+//            NSDictionary *dict = [[placemarks objectAtIndex:0] addressDictionary];
+//            NSLog(@"Street address %@", [dict objectForKey:@"Street"]);
+//            [self.locationDic setValue:dict[@"Name"] forKey:@"location"];
+//        } else {
+//            NSLog(@"Error: %@", error);
+//        }
+//    }];
+//    [manager stopUpdatingLocation];
+//}
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(nonnull NSError *)error{
+    NSLog(@"error:%@",error);
 }
 
 - (void)didReceiveMemoryWarning {

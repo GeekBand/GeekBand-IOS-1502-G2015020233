@@ -1,2 +1,2 @@
-platform:ios, '9.1'
-pod "SDWebImage", '~> 3.7.3'
+platform:ios, '6.1'
+pod "SDWebImage", '~> 3.7'
