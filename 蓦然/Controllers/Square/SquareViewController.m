@@ -17,11 +17,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setTitle:@"全部" forState:UIControlStateNormal];
+    btn.frame=CGRectMake(0, 0, 200, 35);
+    [btn addTarget:self action:@selector(titleBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [btn setImage:[UIImage imageNamed:@"icon_arrow_down"] forState:UIControlStateNormal];
+    btn.imageEdgeInsets=UIEdgeInsetsMake(0, 133, 0, 0);
+    btn.titleEdgeInsets=UIEdgeInsetsMake(0, 0, 0, 40);
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.titleView=btn;
+    [self requestAllData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,7 +34,15 @@
     // Dispose of any resources that can be recreated.
 }
 
--(NSDictionary *)getLocation:(NSDictionary *)paramDic{
+-(void)titleBtnClicked{
+    
+}
+
+-(void)requestAllData{
+    NSDictionary *paramDic=@{@"distance":@"1000",@"latitude":@"31.22516",@"longitude":@"121.47794"};
+    [self getLocation:paramDic];
+}
+-(void)getLocation:(NSDictionary *)paramDic{
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     GBMUserModel *user = app.user;
     NSString *locationUrl=[MoranAPI  location];
@@ -37,64 +50,49 @@
     NSData *requestedData=[NSData dataWithContentsOfURL:[NSURL URLWithString: urlString]];
     NSDictionary *requestedDic=[CommonParser parseJson:requestedData];
     
-    return requestedDic;
+    NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+    id data=[[requestedDic valueForKey:@"data"] allValues];
+    for(id tmpDic in data){
+        self.addrArray=[NSMutableArray array];
+        self.picArray=[NSMutableArray array];
+        
+        SquareModel *sm=[[SquareModel alloc] init];
+        [sm setValuesForKeysWithDictionary:tmpDic[@"node"]];
+        for(id picDic in tmpDic[@"pic"]){
+            Picture *pic=[[Picture alloc] init];
+            [pic setValuesForKeysWithDictionary:picDic];
+            [self.picArray addObject:pic];
+        }
+        [self.addrArray addObject:sm];
+        [dic setObject:_picArray forKey:_addrArray];
+    }
+    
+    self.dataDic = dic;
 }
 
-#pragma mark - Table view data source
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
 
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.addrArray.count;
+}
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    SquareTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:@"squareTableCell" forIndexPath:indexPath];
+    if(!cell){
+        cell=[[SquareTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"squareTableCell"];
+    }
     
-    // Configure the cell...
-    
+    SquareModel *square=self.addrArray[indexPath.row][0];
+    cell.addrLbl.text=square.addr;
+    cell.dataArr=self.dataDic[self.addrArray[indexPath.row]];
+    [cell.imgCollectionView reloadData];
     return cell;
 }
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end
+
+
+
+
+

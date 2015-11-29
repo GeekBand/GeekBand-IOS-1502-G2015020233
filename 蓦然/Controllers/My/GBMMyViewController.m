@@ -18,8 +18,6 @@
     [super viewDidLoad];
     self.headImgView.layer.cornerRadius=self.headImgView.frame.size.width/2.0f;
     self.headImgView.clipsToBounds=YES;
-    
-    self.commonRequest=[[CommonRequest alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {

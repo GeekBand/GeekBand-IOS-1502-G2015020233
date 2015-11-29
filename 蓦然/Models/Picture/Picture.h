@@ -12,6 +12,7 @@
 
 @property(nonatomic,copy) NSString *pic_link;
 @property(nonatomic,copy) NSString *pic_id;
+@property(nonatomic,copy) NSString *title;
 
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key;
 

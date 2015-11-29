@@ -30,12 +30,15 @@
 		4B6CA8291C0429D900E7E31B /* CommonRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CA8281C0429D900E7E31B /* CommonRequest.m */; };
 		4B6CA82C1C04548E00E7E31B /* MoranAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CA82B1C04548E00E7E31B /* MoranAPI.m */; };
 		4B6CA82F1C059D8E00E7E31B /* ChangeHeadImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6CA82E1C059D8E00E7E31B /* ChangeHeadImageController.m */; };
+		4B8F788D1C09EC9F00DA43BB /* SquareCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F788C1C09EC9F00DA43BB /* SquareCollectionViewCell.m */; };
+		4B8F78901C09FCAC00DA43BB /* SquareStoredData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B8F788F1C09FCAC00DA43BB /* SquareStoredData.m */; };
 		4BA64D451C07456800DA2A29 /* HomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA64D441C07456800DA2A29 /* HomePageViewController.m */; };
 		4BA64D471C07F35600DA2A29 /* Square.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BA64D461C07F35600DA2A29 /* Square.storyboard */; };
 		4BA64D541C07F99B00DA2A29 /* SquareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA64D531C07F99B00DA2A29 /* SquareViewController.m */; };
 		4BA64D571C07FCC200DA2A29 /* SquareNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA64D561C07FCC200DA2A29 /* SquareNavigationController.m */; };
 		4BA64D5E1C08414900DA2A29 /* SquareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA64D5D1C08414900DA2A29 /* SquareModel.m */; };
 		4BA64D621C0842FE00DA2A29 /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA64D611C0842FE00DA2A29 /* Picture.m */; };
+		4BAB562A1C0992F5001C096A /* SquareTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BAB56291C0992F5001C096A /* SquareTableViewCell.m */; };
 		4BE294491C004A9E00EDA390 /* BLMultipartForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE294481C004A9E00EDA390 /* BLMultipartForm.m */; };
 		4BE2944F1C005B1600EDA390 /* GBMUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE2944E1C005B1600EDA390 /* GBMUserModel.m */; };
 /* End PBXBuildFile section */
@@ -101,6 +104,10 @@
 		4B6CA82B1C04548E00E7E31B /* MoranAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoranAPI.m; path = ../Requests/MoranAPI.m; sourceTree = "<group>"; };
 		4B6CA82D1C059D8E00E7E31B /* ChangeHeadImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeHeadImageController.h; sourceTree = "<group>"; };
 		4B6CA82E1C059D8E00E7E31B /* ChangeHeadImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeHeadImageController.m; sourceTree = "<group>"; };
+		4B8F788B1C09EC9F00DA43BB /* SquareCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareCollectionViewCell.h; sourceTree = "<group>"; };
+		4B8F788C1C09EC9F00DA43BB /* SquareCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareCollectionViewCell.m; sourceTree = "<group>"; };
+		4B8F788E1C09FCAC00DA43BB /* SquareStoredData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareStoredData.h; sourceTree = "<group>"; };
+		4B8F788F1C09FCAC00DA43BB /* SquareStoredData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareStoredData.m; sourceTree = "<group>"; };
 		4BA64D431C07456800DA2A29 /* HomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageViewController.h; sourceTree = "<group>"; };
 		4BA64D441C07456800DA2A29 /* HomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageViewController.m; sourceTree = "<group>"; };
 		4BA64D461C07F35600DA2A29 /* Square.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Square.storyboard; sourceTree = "<group>"; };
@@ -112,6 +119,8 @@
 		4BA64D5D1C08414900DA2A29 /* SquareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareModel.m; sourceTree = "<group>"; };
 		4BA64D601C0842FE00DA2A29 /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Picture.h; sourceTree = "<group>"; };
 		4BA64D611C0842FE00DA2A29 /* Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Picture.m; sourceTree = "<group>"; };
+		4BAB56281C0992F5001C096A /* SquareTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareTableViewCell.h; sourceTree = "<group>"; };
+		4BAB56291C0992F5001C096A /* SquareTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareTableViewCell.m; sourceTree = "<group>"; };
 		4BE294471C004A9E00EDA390 /* BLMultipartForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLMultipartForm.h; sourceTree = "<group>"; };
 		4BE294481C004A9E00EDA390 /* BLMultipartForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLMultipartForm.m; sourceTree = "<group>"; };
 		4BE2944D1C005B1600EDA390 /* GBMUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBMUserModel.h; sourceTree = "<group>"; };
@@ -318,6 +327,12 @@
 				4BA64D531C07F99B00DA2A29 /* SquareViewController.m */,
 				4BA64D551C07FCC200DA2A29 /* SquareNavigationController.h */,
 				4BA64D561C07FCC200DA2A29 /* SquareNavigationController.m */,
+				4BAB56281C0992F5001C096A /* SquareTableViewCell.h */,
+				4BAB56291C0992F5001C096A /* SquareTableViewCell.m */,
+				4B8F788B1C09EC9F00DA43BB /* SquareCollectionViewCell.h */,
+				4B8F788C1C09EC9F00DA43BB /* SquareCollectionViewCell.m */,
+				4B8F788E1C09FCAC00DA43BB /* SquareStoredData.h */,
+				4B8F788F1C09FCAC00DA43BB /* SquareStoredData.m */,
 			);
 			path = Square;
 			sourceTree = "<group>";
@@ -524,6 +539,7 @@
 				4B6CA8201C02FFA500E7E31B /* GBMNickNameViewController.m in Sources */,
 				4B17CB3A1BFDD79E00C8F3E4 /* main.m in Sources */,
 				4B6CA82F1C059D8E00E7E31B /* ChangeHeadImageController.m in Sources */,
+				4BAB562A1C0992F5001C096A /* SquareTableViewCell.m in Sources */,
 				4BA64D451C07456800DA2A29 /* HomePageViewController.m in Sources */,
 				4B6CA8011C0151CE00E7E31B /* CommonTools.m in Sources */,
 				4B6CA8061C01628400E7E31B /* GBMLoginRequest.m in Sources */,
@@ -533,6 +549,7 @@
 				4B6CA8231C030B4A00E7E31B /* GBMGetImage.m in Sources */,
 				4B6CA81A1C019F3600E7E31B /* GBMRegisterViewController.m in Sources */,
 				4BA64D571C07FCC200DA2A29 /* SquareNavigationController.m in Sources */,
+				4B8F788D1C09EC9F00DA43BB /* SquareCollectionViewCell.m in Sources */,
 				4B6CA80D1C01634300E7E31B /* GBMRegisterRequest.m in Sources */,
 				4BA64D621C0842FE00DA2A29 /* Picture.m in Sources */,
 				4B6CA8191C019F3600E7E31B /* GBMLoginViewController.m in Sources */,
@@ -540,6 +557,7 @@
 				4B6CA8291C0429D900E7E31B /* CommonRequest.m in Sources */,
 				4BE294491C004A9E00EDA390 /* BLMultipartForm.m in Sources */,
 				4B6CA8261C034DEE00E7E31B /* MyNavController.m in Sources */,
+				4B8F78901C09FCAC00DA43BB /* SquareStoredData.m in Sources */,
 				4B6CA82C1C04548E00E7E31B /* MoranAPI.m in Sources */,
 				4B6CA81D1C019F7C00E7E31B /* GBMMyViewController.m in Sources */,
 			);
@@ -627,6 +645,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -663,6 +682,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
